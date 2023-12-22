@@ -1,0 +1,12 @@
+type NGOCreated @entity(immutable: true) {
+  id: Bytes!
+  _name: String! # string
+  _imageLink: String! # string
+  _description: String! # string
+  _link: String! # string
+  _rewardsOwner: Bytes! # address
+  _ngoAddress: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

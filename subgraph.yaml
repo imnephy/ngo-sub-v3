@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: NgoLisFactory
+    network: goerli
+    source:
+      address: "0xAf33Ac0aDB9fC083E0DC14fd00EB9B87cB66697D"
+      abi: NgoLisFactory
+      startBlock: 10246394
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NGOCreated
+      abis:
+        - name: NgoLisFactory
+          file: ./abis/NgoLisFactory.json
+      eventHandlers:
+        - event: NGOCreated(string,string,string,string,address,address)
+          handler: handleNGOCreated
+      file: ./src/ngo-lis-factory.ts

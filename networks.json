@@ -1,0 +1,8 @@
+{
+  "goerli": {
+    "NgoLisFactory": {
+      "address": "0xAf33Ac0aDB9fC083E0DC14fd00EB9B87cB66697D",
+      "startBlock": 10246394
+    }
+  }
+}

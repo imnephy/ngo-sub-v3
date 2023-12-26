@@ -1,7 +1,10 @@
 import { NGOCreated as NGOCreatedEvent } from "../generated/NgoLisFactory/NgoLisFactory"
 import { NGOCreated } from "../generated/schema"
+import { NgoLisSource } from "../generated/templates"
 
 export function handleNGOCreated(event: NGOCreatedEvent): void {
+  NgoLisSource.create(event.params._ngoAddress)
+
   let entity = new NGOCreated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )

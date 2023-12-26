@@ -1,83 +1,132 @@
-[
-  {
-    "inputs": [
-      { "internalType": "address", "name": "_lidoSC", "type": "address" },
-      { "internalType": "address", "name": "_withdrawalSC", "type": "address" },
-      {
-        "internalType": "address",
-        "name": "_oracleAddress",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_ngoImplementationAddress",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_imageLink",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_description",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_link",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_rewardsOwner",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_ngoAddress",
-        "type": "address"
-      }
-    ],
-    "name": "NGOCreated",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      { "internalType": "string", "name": "_name", "type": "string" },
-      { "internalType": "string", "name": "_imageLink", "type": "string" },
-      { "internalType": "string", "name": "_description", "type": "string" },
-      { "internalType": "string", "name": "_link", "type": "string" },
-      { "internalType": "address", "name": "_rewardsOwner", "type": "address" }
-    ],
-    "name": "createNGO",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "ownerToNgo",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  }
-]
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "NGOLisFactory",
+  "sourceName": "contracts/NGOLisFactory.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_lidoSC",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_withdrawalSC",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_oracleAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_ngoImplementationAddress",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "_imageLink",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "_link",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_rewardsOwner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "_ngoAddress",
+          "type": "address"
+        }
+      ],
+      "name": "NGOCreated",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_imageLink",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_link",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_rewardsOwner",
+          "type": "address"
+        }
+      ],
+      "name": "createNGO",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "ownerToNgo",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b5060405161068c38038061068c83398101604081905261002f9161009d565b600080546001600160a01b039586166001600160a01b031991821617909155600280549486169482169490941790935560018054918516918416919091179055600380549190931691161790556100f1565b80516001600160a01b038116811461009857600080fd5b919050565b600080600080608085870312156100b357600080fd5b6100bc85610081565b93506100ca60208601610081565b92506100d860408601610081565b91506100e660608601610081565b905092959194509250565b61058c806101006000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80630819872e1461003b578063fca1531314610050575b600080fd5b61004e61004936600461038a565b6100af565b005b61008661005e366004610448565b60046020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff909116815260200160405180910390f35b600154604080517f3d60ad80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000602082015260609290921b7fffffffffffffffffffffffffffffffffffffffff0000000000000000000000001660348301527f5af43d82803e903d91602b57fd5bf300000000000000000000000000000000006048830152805180830360370181526057909201905260008151602083016000f06000546002546003546040517ff8c8765e00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff9384166004820152878416602482015291831660448301528216606482015291925082169063f8c8765e90608401600060405180830381600087803b1580156101d757600080fd5b505af11580156101eb573d6000803e3d6000fd5b5050336000908152600460205260409081902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff8616179055517fa4b0e33b933d52d2b06ef93f0da7713bbdbefa71e22fa99f20d69557f6720def925061027691508990899089908990899088906104d5565b60405180910390a150505050505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b600082601f8301126102c757600080fd5b813567ffffffffffffffff808211156102e2576102e2610287565b604051601f83017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0908116603f0116810190828211818310171561032857610328610287565b8160405283815286602085880101111561034157600080fd5b836020870160208301376000602085830101528094505050505092915050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461038557600080fd5b919050565b600080600080600060a086880312156103a257600080fd5b853567ffffffffffffffff808211156103ba57600080fd5b6103c689838a016102b6565b965060208801359150808211156103dc57600080fd5b6103e889838a016102b6565b955060408801359150808211156103fe57600080fd5b61040a89838a016102b6565b9450606088013591508082111561042057600080fd5b5061042d888289016102b6565b92505061043c60808701610361565b90509295509295909350565b60006020828403121561045a57600080fd5b61046382610361565b9392505050565b6000815180845260005b8181101561049057602081850181015186830182015201610474565b818111156104a2576000602083870101525b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0169290920160200192915050565b60c0815260006104e860c083018961046a565b82810360208401526104fa818961046a565b9050828103604084015261050e818861046a565b90508281036060840152610522818761046a565b91505073ffffffffffffffffffffffffffffffffffffffff808516608084015280841660a08401525097965050505050505056fea2646970667358221220b1b29151e353ffd18583b14286d6570177c40cc5db4bfbd60f9678a8728adee764736f6c63430008090033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80630819872e1461003b578063fca1531314610050575b600080fd5b61004e61004936600461038a565b6100af565b005b61008661005e366004610448565b60046020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b60405173ffffffffffffffffffffffffffffffffffffffff909116815260200160405180910390f35b600154604080517f3d60ad80600a3d3981f3363d3d373d3d3d363d73000000000000000000000000602082015260609290921b7fffffffffffffffffffffffffffffffffffffffff0000000000000000000000001660348301527f5af43d82803e903d91602b57fd5bf300000000000000000000000000000000006048830152805180830360370181526057909201905260008151602083016000f06000546002546003546040517ff8c8765e00000000000000000000000000000000000000000000000000000000815273ffffffffffffffffffffffffffffffffffffffff9384166004820152878416602482015291831660448301528216606482015291925082169063f8c8765e90608401600060405180830381600087803b1580156101d757600080fd5b505af11580156101eb573d6000803e3d6000fd5b5050336000908152600460205260409081902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff8616179055517fa4b0e33b933d52d2b06ef93f0da7713bbdbefa71e22fa99f20d69557f6720def925061027691508990899089908990899088906104d5565b60405180910390a150505050505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b600082601f8301126102c757600080fd5b813567ffffffffffffffff808211156102e2576102e2610287565b604051601f83017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0908116603f0116810190828211818310171561032857610328610287565b8160405283815286602085880101111561034157600080fd5b836020870160208301376000602085830101528094505050505092915050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461038557600080fd5b919050565b600080600080600060a086880312156103a257600080fd5b853567ffffffffffffffff808211156103ba57600080fd5b6103c689838a016102b6565b965060208801359150808211156103dc57600080fd5b6103e889838a016102b6565b955060408801359150808211156103fe57600080fd5b61040a89838a016102b6565b9450606088013591508082111561042057600080fd5b5061042d888289016102b6565b92505061043c60808701610361565b90509295509295909350565b60006020828403121561045a57600080fd5b61046382610361565b9392505050565b6000815180845260005b8181101561049057602081850181015186830182015201610474565b818111156104a2576000602083870101525b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0169290920160200192915050565b60c0815260006104e860c083018961046a565b82810360208401526104fa818961046a565b9050828103604084015261050e818861046a565b90508281036060840152610522818761046a565b91505073ffffffffffffffffffffffffffffffffffffffff808516608084015280841660a08401525097965050505050505056fea2646970667358221220b1b29151e353ffd18583b14286d6570177c40cc5db4bfbd60f9678a8728adee764736f6c63430008090033",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}

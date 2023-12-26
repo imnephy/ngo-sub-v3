@@ -1,0 +1,123 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_lidoSC",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_withdrawalSC",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_oracleAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_ngoImplementationAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_imageLink",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "_link",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_rewardsOwner",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "_ngoAddress",
+        "type": "address"
+      }
+    ],
+    "name": "NGOCreated",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_imageLink",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_link",
+        "type": "string"
+      },
+      {
+        "internalType": "address",
+        "name": "_rewardsOwner",
+        "type": "address"
+      }
+    ],
+    "name": "createNGO",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "ownerToNgo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

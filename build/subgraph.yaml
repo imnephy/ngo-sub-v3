@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: NgoLisFactory
@@ -17,11 +17,11 @@ dataSources:
         - NGOCreated
       abis:
         - name: NgoLisFactory
-          file: ./abis/NgoLisFactory.json
+          file: NgoLisFactory/abis/NgoLisFactory.json
       eventHandlers:
         - event: NGOCreated(string,string,string,string,address,address)
           handler: handleNGOCreated
-      file: ./src/ngo-lis-factory.ts
+      file: NgoLisFactory/NgoLisFactory.wasm
 templates:
   - name: NgoLisSource
     kind: ethereum/contract
@@ -32,7 +32,7 @@ templates:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: ./src/ngo-lis.ts
+      file: templates/NgoLisSource/NgoLisSource.wasm
       entities:
         - NGOLisCreated
         - NgoLisClaimed
@@ -43,7 +43,7 @@ templates:
         - NgoLisWithdrawRequested
       abis:
         - name: NgoLis
-          file: ./abis/NgoLis.json
+          file: NgoLisSource/abis/NgoLis.json
       eventHandlers:
         - event: NGOCreated(string,string,string,string,address,address)
           handler: handleNGOCreated

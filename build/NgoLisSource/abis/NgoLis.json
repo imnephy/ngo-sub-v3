@@ -1,12 +1,33 @@
 [
   {
     "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
     "name": "InsufficientStakedFunds",
     "type": "error"
   },
   {
     "inputs": [],
     "name": "InvalidPercent",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_claimer",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_requestId",
+        "type": "uint256"
+      }
+    ],
+    "name": "InvalidRequestIdForUser",
     "type": "error"
   },
   {
@@ -88,68 +109,6 @@
       {
         "indexed": false,
         "internalType": "address",
-        "name": "_staker",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "_eth",
-        "type": "uint256"
-      }
-    ],
-    "name": "Claimed",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_imageLink",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_description",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "string",
-        "name": "_link",
-        "type": "string"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "rewardsOwner",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "_ngoAddress",
-        "type": "address"
-      }
-    ],
-    "name": "NGOCreated",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
         "name": "_ngo",
         "type": "address"
       },
@@ -157,6 +116,12 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "_timestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_blockNumber",
         "type": "uint256"
       }
     ],
@@ -175,19 +140,31 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "_stakedBalance",
+        "name": "stakedBalance",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "_totalShare",
+        "name": "totalShare",
         "type": "uint256"
       },
       {
         "indexed": false,
         "internalType": "uint256",
         "name": "_dateRecountRewards",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_timestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_blockNumber",
         "type": "uint256"
       }
     ],
@@ -232,6 +209,18 @@
         "internalType": "uint256",
         "name": "_startDate",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_timestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_blockNumber",
+        "type": "uint256"
       }
     ],
     "name": "Staked",
@@ -263,6 +252,18 @@
         "internalType": "uint256",
         "name": "_requestId",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_timestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_blockNumber",
+        "type": "uint256"
       }
     ],
     "name": "WithdrawClaimed",
@@ -287,6 +288,18 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "_requestId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_timestamp",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_blockNumber",
         "type": "uint256"
       }
     ],
@@ -327,6 +340,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getCurrentBalanceFromLido",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -343,7 +369,7 @@
       },
       {
         "internalType": "uint256",
-        "name": "_totalShares",
+        "name": "totalShares",
         "type": "uint256"
       },
       {
@@ -387,11 +413,6 @@
       {
         "internalType": "uint256",
         "name": "_userRewards",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_ngoRewards",
         "type": "uint256"
       }
     ],
@@ -527,6 +548,40 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "onERC721Received",
+    "outputs": [
+      {
+        "internalType": "bytes4",
+        "name": "",
+        "type": "bytes4"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "oracle",
     "outputs": [
@@ -537,19 +592,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_to",
-        "type": "address"
-      }
-    ],
-    "name": "requestWithdrawForOwner",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -598,7 +640,7 @@
   },
   {
     "inputs": [],
-    "name": "stakedToday",
+    "name": "stakedBalance",
     "outputs": [
       {
         "internalType": "uint256",

@@ -6,8 +6,8 @@ type NGOCreated @entity(immutable: true) {
   _link: String! # string
   _rewardsOwner: Bytes! # address
   _ngoAddress: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
   transactionHash: Bytes!
 }
 
@@ -19,17 +19,22 @@ type NGOLisCreated @entity(immutable: true) {
   _link: String! # string
   _rewardsOwner: Bytes! # address
   _ngoAddress: Bytes! # address
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }
 
 type NgoLisClaimed @entity(immutable: true) {
   id: Bytes!
   _staker: Bytes!
   _eth: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }
 
 type NgoLisFinished @entity(immutable: true) {
   id: Bytes!
   _ngo: Bytes!
+  _blockNumber: BigInt!
   _timestamp: BigInt!
 }
 
@@ -39,6 +44,8 @@ type NgoLisRewardsUpdated @entity(immutable: true) {
   _stakedBalance: BigInt!
   _totalShare: BigInt!
   _dateRecountRewards: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }
 
 type NgoLisStaked @entity(immutable: true) {
@@ -49,6 +56,8 @@ type NgoLisStaked @entity(immutable: true) {
   _duration: BigInt!
   _ngo: Bytes!
   _startDate: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }
 
 type NgoLisWithdrawClaimed @entity(immutable: true) {
@@ -57,6 +66,8 @@ type NgoLisWithdrawClaimed @entity(immutable: true) {
   _ngo: Bytes!
   _amount: BigInt!
   _requestId: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }
 
 type NgoLisWithdrawRequested @entity(immutable: true) {
@@ -64,4 +75,6 @@ type NgoLisWithdrawRequested @entity(immutable: true) {
   _staker: Bytes!
   _ngo: Bytes!
   _requestId: BigInt!
+  _blockNumber: BigInt!
+  _timestamp: BigInt!
 }

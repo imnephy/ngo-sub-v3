@@ -3,7 +3,7 @@
 import {
   Address,
   DataSourceTemplate,
-  DataSourceContext
+  DataSourceContext,
 } from "@graphprotocol/graph-ts";
 
 export class NgoLisSource extends DataSourceTemplate {
@@ -15,7 +15,7 @@ export class NgoLisSource extends DataSourceTemplate {
     DataSourceTemplate.createWithContext(
       "NgoLisSource",
       [address.toHex()],
-      context
+      context,
     );
   }
 }

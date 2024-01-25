@@ -15,8 +15,8 @@ export function handleNGOCreated(event: NGOCreatedEvent): void {
   entity._rewardsOwner = event.params._rewardsOwner
   entity._ngoAddress = event.params._ngoAddress
 
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
+  entity._blockNumber = event.block.number
+  entity._timestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
 
   entity.save()

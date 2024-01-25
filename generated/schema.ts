@@ -8,7 +8,7 @@ import {
   store,
   Bytes,
   BigInt,
-  BigDecimal
+  BigDecimal,
 } from "@graphprotocol/graph-ts";
 
 export class NGOCreated extends Entity {
@@ -23,7 +23,7 @@ export class NGOCreated extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NGOCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NGOCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NGOCreated", id.toBytes().toHexString(), this);
     }
@@ -31,13 +31,13 @@ export class NGOCreated extends Entity {
 
   static loadInBlock(id: Bytes): NGOCreated | null {
     return changetype<NGOCreated | null>(
-      store.get_in_block("NGOCreated", id.toHexString())
+      store.get_in_block("NGOCreated", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NGOCreated | null {
     return changetype<NGOCreated | null>(
-      store.get("NGOCreated", id.toHexString())
+      store.get("NGOCreated", id.toHexString()),
     );
   }
 
@@ -132,8 +132,8 @@ export class NGOCreated extends Entity {
     this.set("_ngoAddress", Value.fromBytes(value));
   }
 
-  get blockNumber(): BigInt {
-    let value = this.get("blockNumber");
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -141,12 +141,12 @@ export class NGOCreated extends Entity {
     }
   }
 
-  set blockNumber(value: BigInt) {
-    this.set("blockNumber", Value.fromBigInt(value));
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
   }
 
-  get blockTimestamp(): BigInt {
-    let value = this.get("blockTimestamp");
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -154,8 +154,8 @@ export class NGOCreated extends Entity {
     }
   }
 
-  set blockTimestamp(value: BigInt) {
-    this.set("blockTimestamp", Value.fromBigInt(value));
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
   }
 
   get transactionHash(): Bytes {
@@ -184,7 +184,7 @@ export class NGOLisCreated extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NGOLisCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NGOLisCreated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NGOLisCreated", id.toBytes().toHexString(), this);
     }
@@ -192,13 +192,13 @@ export class NGOLisCreated extends Entity {
 
   static loadInBlock(id: Bytes): NGOLisCreated | null {
     return changetype<NGOLisCreated | null>(
-      store.get_in_block("NGOLisCreated", id.toHexString())
+      store.get_in_block("NGOLisCreated", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NGOLisCreated | null {
     return changetype<NGOLisCreated | null>(
-      store.get("NGOLisCreated", id.toHexString())
+      store.get("NGOLisCreated", id.toHexString()),
     );
   }
 
@@ -292,6 +292,32 @@ export class NGOLisCreated extends Entity {
   set _ngoAddress(value: Bytes) {
     this.set("_ngoAddress", Value.fromBytes(value));
   }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class NgoLisClaimed extends Entity {
@@ -306,7 +332,7 @@ export class NgoLisClaimed extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisClaimed must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisClaimed must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisClaimed", id.toBytes().toHexString(), this);
     }
@@ -314,13 +340,13 @@ export class NgoLisClaimed extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisClaimed | null {
     return changetype<NgoLisClaimed | null>(
-      store.get_in_block("NgoLisClaimed", id.toHexString())
+      store.get_in_block("NgoLisClaimed", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisClaimed | null {
     return changetype<NgoLisClaimed | null>(
-      store.get("NgoLisClaimed", id.toHexString())
+      store.get("NgoLisClaimed", id.toHexString()),
     );
   }
 
@@ -362,6 +388,32 @@ export class NgoLisClaimed extends Entity {
   set _eth(value: BigInt) {
     this.set("_eth", Value.fromBigInt(value));
   }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class NgoLisFinished extends Entity {
@@ -376,7 +428,7 @@ export class NgoLisFinished extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisFinished must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisFinished must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisFinished", id.toBytes().toHexString(), this);
     }
@@ -384,13 +436,13 @@ export class NgoLisFinished extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisFinished | null {
     return changetype<NgoLisFinished | null>(
-      store.get_in_block("NgoLisFinished", id.toHexString())
+      store.get_in_block("NgoLisFinished", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisFinished | null {
     return changetype<NgoLisFinished | null>(
-      store.get("NgoLisFinished", id.toHexString())
+      store.get("NgoLisFinished", id.toHexString()),
     );
   }
 
@@ -420,6 +472,19 @@ export class NgoLisFinished extends Entity {
     this.set("_ngo", Value.fromBytes(value));
   }
 
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
   get _timestamp(): BigInt {
     let value = this.get("_timestamp");
     if (!value || value.kind == ValueKind.NULL) {
@@ -446,7 +511,7 @@ export class NgoLisRewardsUpdated extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisRewardsUpdated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisRewardsUpdated must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisRewardsUpdated", id.toBytes().toHexString(), this);
     }
@@ -454,13 +519,13 @@ export class NgoLisRewardsUpdated extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisRewardsUpdated | null {
     return changetype<NgoLisRewardsUpdated | null>(
-      store.get_in_block("NgoLisRewardsUpdated", id.toHexString())
+      store.get_in_block("NgoLisRewardsUpdated", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisRewardsUpdated | null {
     return changetype<NgoLisRewardsUpdated | null>(
-      store.get("NgoLisRewardsUpdated", id.toHexString())
+      store.get("NgoLisRewardsUpdated", id.toHexString()),
     );
   }
 
@@ -528,6 +593,32 @@ export class NgoLisRewardsUpdated extends Entity {
   set _dateRecountRewards(value: BigInt) {
     this.set("_dateRecountRewards", Value.fromBigInt(value));
   }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class NgoLisStaked extends Entity {
@@ -542,7 +633,7 @@ export class NgoLisStaked extends Entity {
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisStaked must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisStaked must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisStaked", id.toBytes().toHexString(), this);
     }
@@ -550,13 +641,13 @@ export class NgoLisStaked extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisStaked | null {
     return changetype<NgoLisStaked | null>(
-      store.get_in_block("NgoLisStaked", id.toHexString())
+      store.get_in_block("NgoLisStaked", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisStaked | null {
     return changetype<NgoLisStaked | null>(
-      store.get("NgoLisStaked", id.toHexString())
+      store.get("NgoLisStaked", id.toHexString()),
     );
   }
 
@@ -650,6 +741,32 @@ export class NgoLisStaked extends Entity {
   set _startDate(value: BigInt) {
     this.set("_startDate", Value.fromBigInt(value));
   }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class NgoLisWithdrawClaimed extends Entity {
@@ -662,12 +779,12 @@ export class NgoLisWithdrawClaimed extends Entity {
     let id = this.get("id");
     assert(
       id != null,
-      "Cannot save NgoLisWithdrawClaimed entity without an ID"
+      "Cannot save NgoLisWithdrawClaimed entity without an ID",
     );
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisWithdrawClaimed must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisWithdrawClaimed must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisWithdrawClaimed", id.toBytes().toHexString(), this);
     }
@@ -675,13 +792,13 @@ export class NgoLisWithdrawClaimed extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisWithdrawClaimed | null {
     return changetype<NgoLisWithdrawClaimed | null>(
-      store.get_in_block("NgoLisWithdrawClaimed", id.toHexString())
+      store.get_in_block("NgoLisWithdrawClaimed", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisWithdrawClaimed | null {
     return changetype<NgoLisWithdrawClaimed | null>(
-      store.get("NgoLisWithdrawClaimed", id.toHexString())
+      store.get("NgoLisWithdrawClaimed", id.toHexString()),
     );
   }
 
@@ -749,6 +866,32 @@ export class NgoLisWithdrawClaimed extends Entity {
   set _requestId(value: BigInt) {
     this.set("_requestId", Value.fromBigInt(value));
   }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
+  }
 }
 
 export class NgoLisWithdrawRequested extends Entity {
@@ -761,12 +904,12 @@ export class NgoLisWithdrawRequested extends Entity {
     let id = this.get("id");
     assert(
       id != null,
-      "Cannot save NgoLisWithdrawRequested entity without an ID"
+      "Cannot save NgoLisWithdrawRequested entity without an ID",
     );
     if (id) {
       assert(
         id.kind == ValueKind.BYTES,
-        `Entities of type NgoLisWithdrawRequested must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`
+        `Entities of type NgoLisWithdrawRequested must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
       store.set("NgoLisWithdrawRequested", id.toBytes().toHexString(), this);
     }
@@ -774,13 +917,13 @@ export class NgoLisWithdrawRequested extends Entity {
 
   static loadInBlock(id: Bytes): NgoLisWithdrawRequested | null {
     return changetype<NgoLisWithdrawRequested | null>(
-      store.get_in_block("NgoLisWithdrawRequested", id.toHexString())
+      store.get_in_block("NgoLisWithdrawRequested", id.toHexString()),
     );
   }
 
   static load(id: Bytes): NgoLisWithdrawRequested | null {
     return changetype<NgoLisWithdrawRequested | null>(
-      store.get("NgoLisWithdrawRequested", id.toHexString())
+      store.get("NgoLisWithdrawRequested", id.toHexString()),
     );
   }
 
@@ -834,5 +977,31 @@ export class NgoLisWithdrawRequested extends Entity {
 
   set _requestId(value: BigInt) {
     this.set("_requestId", Value.fromBigInt(value));
+  }
+
+  get _blockNumber(): BigInt {
+    let value = this.get("_blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _blockNumber(value: BigInt) {
+    this.set("_blockNumber", Value.fromBigInt(value));
+  }
+
+  get _timestamp(): BigInt {
+    let value = this.get("_timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _timestamp(value: BigInt) {
+    this.set("_timestamp", Value.fromBigInt(value));
   }
 }

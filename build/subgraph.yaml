@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: NgoLisFactory
-    network: goerli
+    network: holesky
     source:
-      address: "0xAf33Ac0aDB9fC083E0DC14fd00EB9B87cB66697D"
+      address: "0xfD8D662047E8F4B9Fc62623f06F8a8D1eEa012c1"
       abi: NgoLisFactory
-      startBlock: 10246394
+      startBlock: 713400
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -25,7 +25,7 @@ dataSources:
 templates:
   - name: NgoLisSource
     kind: ethereum/contract
-    network: goerli
+    network: holesky
     source:
       abi: NgoLis
     mapping:
@@ -45,17 +45,13 @@ templates:
         - name: NgoLis
           file: NgoLisSource/abis/NgoLis.json
       eventHandlers:
-        - event: NGOCreated(string,string,string,string,address,address)
-          handler: handleNGOCreated
-        - event: Claimed(address,uint256)
-          handler: handleClaimed
-        - event: NGOFinished(address,uint256)
+        - event: NGOFinished(address,uint256,uint256)
           handler: handleNGOFinished
-        - event: RewardsUpdated(uint256,uint256,uint256,uint256)
+        - event: RewardsUpdated(uint256,uint256,uint256,uint256,uint256,uint256)
           handler: handleRewardsUpdated
-        - event: Staked(address,uint256,uint16,uint256,address,uint256)
+        - event: Staked(address,uint256,uint16,uint256,address,uint256,uint256,uint256)
           handler: handleStaked
-        - event: WithdrawClaimed(address,address,uint256,uint256)
+        - event: WithdrawClaimed(address,address,uint256,uint256,uint256,uint256)
           handler: handleWithdrawClaimed
-        - event: WithdrawRequested(address,address,uint256)
+        - event: WithdrawRequested(address,address,uint256,uint256,uint256)
           handler: handleWithdrawRequested

@@ -7,7 +7,7 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
 
 export class NGOCreated extends ethereum.Event {
@@ -55,7 +55,7 @@ export class NgoLisFactory extends ethereum.SmartContract {
 
   ownerToNgo(param0: Address): Address {
     let result = super.call("ownerToNgo", "ownerToNgo(address):(address)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
 
     return result[0].toAddress();
@@ -63,7 +63,7 @@ export class NgoLisFactory extends ethereum.SmartContract {
 
   try_ownerToNgo(param0: Address): ethereum.CallResult<Address> {
     let result = super.tryCall("ownerToNgo", "ownerToNgo(address):(address)", [
-      ethereum.Value.fromAddress(param0)
+      ethereum.Value.fromAddress(param0),
     ]);
     if (result.reverted) {
       return new ethereum.CallResult();

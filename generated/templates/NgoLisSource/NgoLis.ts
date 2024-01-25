@@ -7,68 +7,8 @@ import {
   Entity,
   Bytes,
   Address,
-  BigInt
+  BigInt,
 } from "@graphprotocol/graph-ts";
-
-export class Claimed extends ethereum.Event {
-  get params(): Claimed__Params {
-    return new Claimed__Params(this);
-  }
-}
-
-export class Claimed__Params {
-  _event: Claimed;
-
-  constructor(event: Claimed) {
-    this._event = event;
-  }
-
-  get _staker(): Address {
-    return this._event.parameters[0].value.toAddress();
-  }
-
-  get _eth(): BigInt {
-    return this._event.parameters[1].value.toBigInt();
-  }
-}
-
-export class NGOCreated extends ethereum.Event {
-  get params(): NGOCreated__Params {
-    return new NGOCreated__Params(this);
-  }
-}
-
-export class NGOCreated__Params {
-  _event: NGOCreated;
-
-  constructor(event: NGOCreated) {
-    this._event = event;
-  }
-
-  get _name(): string {
-    return this._event.parameters[0].value.toString();
-  }
-
-  get _imageLink(): string {
-    return this._event.parameters[1].value.toString();
-  }
-
-  get _description(): string {
-    return this._event.parameters[2].value.toString();
-  }
-
-  get _link(): string {
-    return this._event.parameters[3].value.toString();
-  }
-
-  get rewardsOwner(): Address {
-    return this._event.parameters[4].value.toAddress();
-  }
-
-  get _ngoAddress(): Address {
-    return this._event.parameters[5].value.toAddress();
-  }
-}
 
 export class NGOFinished extends ethereum.Event {
   get params(): NGOFinished__Params {
@@ -90,6 +30,10 @@ export class NGOFinished__Params {
   get _timestamp(): BigInt {
     return this._event.parameters[1].value.toBigInt();
   }
+
+  get _blockNumber(): BigInt {
+    return this._event.parameters[2].value.toBigInt();
+  }
 }
 
 export class RewardsUpdated extends ethereum.Event {
@@ -109,16 +53,24 @@ export class RewardsUpdated__Params {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get _stakedBalance(): BigInt {
+  get stakedBalance(): BigInt {
     return this._event.parameters[1].value.toBigInt();
   }
 
-  get _totalShare(): BigInt {
+  get totalShare(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
 
   get _dateRecountRewards(): BigInt {
     return this._event.parameters[3].value.toBigInt();
+  }
+
+  get _timestamp(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+
+  get _blockNumber(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
   }
 }
 
@@ -158,6 +110,14 @@ export class Staked__Params {
   get _startDate(): BigInt {
     return this._event.parameters[5].value.toBigInt();
   }
+
+  get _timestamp(): BigInt {
+    return this._event.parameters[6].value.toBigInt();
+  }
+
+  get _blockNumber(): BigInt {
+    return this._event.parameters[7].value.toBigInt();
+  }
 }
 
 export class WithdrawClaimed extends ethereum.Event {
@@ -188,6 +148,14 @@ export class WithdrawClaimed__Params {
   get _requestId(): BigInt {
     return this._event.parameters[3].value.toBigInt();
   }
+
+  get _timestamp(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
+
+  get _blockNumber(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
+  }
 }
 
 export class WithdrawRequested extends ethereum.Event {
@@ -214,6 +182,14 @@ export class WithdrawRequested__Params {
   get _requestId(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
+
+  get _timestamp(): BigInt {
+    return this._event.parameters[3].value.toBigInt();
+  }
+
+  get _blockNumber(): BigInt {
+    return this._event.parameters[4].value.toBigInt();
+  }
 }
 
 export class NgoLis__getHistoryDataResult {
@@ -239,37 +215,12 @@ export class NgoLis__getHistoryDataResult {
     return this.value0;
   }
 
-  get_totalShares(): BigInt {
+  getTotalShares(): BigInt {
     return this.value1;
   }
 
   get_balance(): BigInt {
     return this.value2;
-  }
-}
-
-export class NgoLis__getUserShareResult {
-  value0: BigInt;
-  value1: BigInt;
-
-  constructor(value0: BigInt, value1: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
-    return map;
-  }
-
-  get_userRewards(): BigInt {
-    return this.value0;
-  }
-
-  get_ngoRewards(): BigInt {
-    return this.value1;
   }
 }
 
@@ -306,7 +257,30 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.tryCall(
       "_rewardsToNgo",
       "_rewardsToNgo():(uint256)",
-      []
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  getCurrentBalanceFromLido(): BigInt {
+    let result = super.call(
+      "getCurrentBalanceFromLido",
+      "getCurrentBalanceFromLido():(uint256)",
+      [],
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_getCurrentBalanceFromLido(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "getCurrentBalanceFromLido",
+      "getCurrentBalanceFromLido():(uint256)",
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -319,23 +293,23 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.call(
       "getHistoryData",
       "getHistoryData(uint256):(uint256,uint256,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_timestamp)]
+      [ethereum.Value.fromUnsignedBigInt(_timestamp)],
     );
 
     return new NgoLis__getHistoryDataResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
-      result[2].toBigInt()
+      result[2].toBigInt(),
     );
   }
 
   try_getHistoryData(
-    _timestamp: BigInt
+    _timestamp: BigInt,
   ): ethereum.CallResult<NgoLis__getHistoryDataResult> {
     let result = super.tryCall(
       "getHistoryData",
       "getHistoryData(uint256):(uint256,uint256,uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_timestamp)]
+      [ethereum.Value.fromUnsignedBigInt(_timestamp)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -345,14 +319,14 @@ export class NgoLis extends ethereum.SmartContract {
       new NgoLis__getHistoryDataResult(
         value[0].toBigInt(),
         value[1].toBigInt(),
-        value[2].toBigInt()
-      )
+        value[2].toBigInt(),
+      ),
     );
   }
 
   getRoundDate(_timestamp: BigInt): BigInt {
     let result = super.call("getRoundDate", "getRoundDate(uint256):(uint256)", [
-      ethereum.Value.fromUnsignedBigInt(_timestamp)
+      ethereum.Value.fromUnsignedBigInt(_timestamp),
     ]);
 
     return result[0].toBigInt();
@@ -362,7 +336,7 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.tryCall(
       "getRoundDate",
       "getRoundDate(uint256):(uint256)",
-      [ethereum.Value.fromUnsignedBigInt(_timestamp)]
+      [ethereum.Value.fromUnsignedBigInt(_timestamp)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -371,57 +345,48 @@ export class NgoLis extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  getUserShare(_user: Address): NgoLis__getUserShareResult {
-    let result = super.call(
-      "getUserShare",
-      "getUserShare(address):(uint256,uint256)",
-      [ethereum.Value.fromAddress(_user)]
-    );
+  getUserShare(_user: Address): BigInt {
+    let result = super.call("getUserShare", "getUserShare(address):(uint256)", [
+      ethereum.Value.fromAddress(_user),
+    ]);
 
-    return new NgoLis__getUserShareResult(
-      result[0].toBigInt(),
-      result[1].toBigInt()
-    );
+    return result[0].toBigInt();
   }
 
-  try_getUserShare(
-    _user: Address
-  ): ethereum.CallResult<NgoLis__getUserShareResult> {
+  try_getUserShare(_user: Address): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "getUserShare",
-      "getUserShare(address):(uint256,uint256)",
-      [ethereum.Value.fromAddress(_user)]
+      "getUserShare(address):(uint256)",
+      [ethereum.Value.fromAddress(_user)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
     let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new NgoLis__getUserShareResult(value[0].toBigInt(), value[1].toBigInt())
-    );
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
   getUserStakeInfo(
-    _user: Address
+    _user: Address,
   ): NgoLis__getUserStakeInfoResult_userStakeInfoStruct {
     let result = super.call(
       "getUserStakeInfo",
       "getUserStakeInfo(address):((uint16,uint256,uint256,uint256))",
-      [ethereum.Value.fromAddress(_user)]
+      [ethereum.Value.fromAddress(_user)],
     );
 
     return changetype<NgoLis__getUserStakeInfoResult_userStakeInfoStruct>(
-      result[0].toTuple()
+      result[0].toTuple(),
     );
   }
 
   try_getUserStakeInfo(
-    _user: Address
+    _user: Address,
   ): ethereum.CallResult<NgoLis__getUserStakeInfoResult_userStakeInfoStruct> {
     let result = super.tryCall(
       "getUserStakeInfo",
       "getUserStakeInfo(address):((uint16,uint256,uint256,uint256))",
-      [ethereum.Value.fromAddress(_user)]
+      [ethereum.Value.fromAddress(_user)],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -429,8 +394,8 @@ export class NgoLis extends ethereum.SmartContract {
     let value = result.value;
     return ethereum.CallResult.fromValue(
       changetype<NgoLis__getUserStakeInfoResult_userStakeInfoStruct>(
-        value[0].toTuple()
-      )
+        value[0].toTuple(),
+      ),
     );
   }
 
@@ -468,7 +433,7 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.call(
       "lastCountRewardsTimestamp",
       "lastCountRewardsTimestamp():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -478,7 +443,7 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.tryCall(
       "lastCountRewardsTimestamp",
       "lastCountRewardsTimestamp():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -500,6 +465,49 @@ export class NgoLis extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  onERC721Received(
+    param0: Address,
+    param1: Address,
+    param2: BigInt,
+    param3: Bytes,
+  ): Bytes {
+    let result = super.call(
+      "onERC721Received",
+      "onERC721Received(address,address,uint256,bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigInt(param2),
+        ethereum.Value.fromBytes(param3),
+      ],
+    );
+
+    return result[0].toBytes();
+  }
+
+  try_onERC721Received(
+    param0: Address,
+    param1: Address,
+    param2: BigInt,
+    param3: Bytes,
+  ): ethereum.CallResult<Bytes> {
+    let result = super.tryCall(
+      "onERC721Received",
+      "onERC721Received(address,address,uint256,bytes):(bytes4)",
+      [
+        ethereum.Value.fromAddress(param0),
+        ethereum.Value.fromAddress(param1),
+        ethereum.Value.fromUnsignedBigInt(param2),
+        ethereum.Value.fromBytes(param3),
+      ],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
   oracle(): Address {
@@ -532,14 +540,18 @@ export class NgoLis extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
-  stakedToday(): BigInt {
-    let result = super.call("stakedToday", "stakedToday():(uint256)", []);
+  stakedBalance(): BigInt {
+    let result = super.call("stakedBalance", "stakedBalance():(uint256)", []);
 
     return result[0].toBigInt();
   }
 
-  try_stakedToday(): ethereum.CallResult<BigInt> {
-    let result = super.tryCall("stakedToday", "stakedToday():(uint256)", []);
+  try_stakedBalance(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "stakedBalance",
+      "stakedBalance():(uint256)",
+      [],
+    );
     if (result.reverted) {
       return new ethereum.CallResult();
     }
@@ -551,7 +563,7 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.call(
       "totalShareToday",
       "totalShareToday():(uint256)",
-      []
+      [],
     );
 
     return result[0].toBigInt();
@@ -561,7 +573,7 @@ export class NgoLis extends ethereum.SmartContract {
     let result = super.tryCall(
       "totalShareToday",
       "totalShareToday():(uint256)",
-      []
+      [],
     );
     if (result.reverted) {
       return new ethereum.CallResult();
@@ -583,6 +595,32 @@ export class NgoLis extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
   }
 }
 
@@ -710,33 +748,49 @@ export class InitializeCall__Outputs {
   }
 }
 
-export class RequestWithdrawForOwnerCall extends ethereum.Call {
-  get inputs(): RequestWithdrawForOwnerCall__Inputs {
-    return new RequestWithdrawForOwnerCall__Inputs(this);
+export class OnERC721ReceivedCall extends ethereum.Call {
+  get inputs(): OnERC721ReceivedCall__Inputs {
+    return new OnERC721ReceivedCall__Inputs(this);
   }
 
-  get outputs(): RequestWithdrawForOwnerCall__Outputs {
-    return new RequestWithdrawForOwnerCall__Outputs(this);
+  get outputs(): OnERC721ReceivedCall__Outputs {
+    return new OnERC721ReceivedCall__Outputs(this);
   }
 }
 
-export class RequestWithdrawForOwnerCall__Inputs {
-  _call: RequestWithdrawForOwnerCall;
+export class OnERC721ReceivedCall__Inputs {
+  _call: OnERC721ReceivedCall;
 
-  constructor(call: RequestWithdrawForOwnerCall) {
+  constructor(call: OnERC721ReceivedCall) {
     this._call = call;
   }
 
-  get _to(): Address {
+  get value0(): Address {
     return this._call.inputValues[0].value.toAddress();
   }
+
+  get value1(): Address {
+    return this._call.inputValues[1].value.toAddress();
+  }
+
+  get value2(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+
+  get value3(): Bytes {
+    return this._call.inputValues[3].value.toBytes();
+  }
 }
 
-export class RequestWithdrawForOwnerCall__Outputs {
-  _call: RequestWithdrawForOwnerCall;
+export class OnERC721ReceivedCall__Outputs {
+  _call: OnERC721ReceivedCall;
 
-  constructor(call: RequestWithdrawForOwnerCall) {
+  constructor(call: OnERC721ReceivedCall) {
     this._call = call;
+  }
+
+  get value0(): Bytes {
+    return this._call.outputValues[0].value.toBytes();
   }
 }
 

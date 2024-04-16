@@ -1,5 +1,5 @@
+import { Address, ethereum } from "@graphprotocol/graph-ts"
 import { newMockEvent } from "matchstick-as"
-import { ethereum, Address } from "@graphprotocol/graph-ts"
 import { NGOCreated } from "../generated/NgoLisFactory/NgoLisFactory"
 
 export function createNGOCreatedEvent(
@@ -8,7 +8,8 @@ export function createNGOCreatedEvent(
   _description: string,
   _link: string,
   _rewardsOwner: Address,
-  _ngoAddress: Address
+  _ngoAddress: Address,
+  _location: string
 ): NGOCreated {
   let ngoCreatedEvent = changetype<NGOCreated>(newMockEvent())
 
@@ -18,7 +19,10 @@ export function createNGOCreatedEvent(
     new ethereum.EventParam("_name", ethereum.Value.fromString(_name))
   )
   ngoCreatedEvent.parameters.push(
-    new ethereum.EventParam("_imageLink", ethereum.Value.fromString(_imageLink))
+    new ethereum.EventParam(
+      "_imageLink",
+      ethereum.Value.fromString(_imageLink)
+    )
   )
   ngoCreatedEvent.parameters.push(
     new ethereum.EventParam(
@@ -39,6 +43,12 @@ export function createNGOCreatedEvent(
     new ethereum.EventParam(
       "_ngoAddress",
       ethereum.Value.fromAddress(_ngoAddress)
+    )
+  )
+  ngoCreatedEvent.parameters.push(
+    new ethereum.EventParam(
+      "_location",
+      ethereum.Value.fromString(_location)
     )
   )
 

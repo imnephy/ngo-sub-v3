@@ -170,6 +170,19 @@ export class NGOCreated extends Entity {
   set transactionHash(value: Bytes) {
     this.set("transactionHash", Value.fromBytes(value));
   }
+
+  get _location(): string {
+    let value = this.get("_location");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set _location(value: string) {
+    this.set("_location", Value.fromString(value));
+  }
 }
 
 export class NGOLisCreated extends Entity {
@@ -252,6 +265,19 @@ export class NGOLisCreated extends Entity {
 
   set _description(value: string) {
     this.set("_description", Value.fromString(value));
+  }
+
+  get _location(): string {
+    let value = this.get("_location");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set _location(value: string) {
+    this.set("_location", Value.fromString(value));
   }
 
   get _link(): string {
@@ -664,6 +690,19 @@ export class NgoLisStaked extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
+  get _id(): BigInt {
+    let value = this.get("_id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _id(value: BigInt) {
+    this.set("_id", Value.fromBigInt(value));
+  }
+
   get _staker(): Bytes {
     let value = this.get("_staker");
     if (!value || value.kind == ValueKind.NULL) {
@@ -701,19 +740,6 @@ export class NgoLisStaked extends Entity {
 
   set _percentShare(value: i32) {
     this.set("_percentShare", Value.fromI32(value));
-  }
-
-  get _duration(): BigInt {
-    let value = this.get("_duration");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toBigInt();
-    }
-  }
-
-  set _duration(value: BigInt) {
-    this.set("_duration", Value.fromBigInt(value));
   }
 
   get _ngo(): Bytes {

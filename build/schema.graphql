@@ -9,6 +9,7 @@ type NGOCreated @entity(immutable: true) {
   _blockNumber: BigInt!
   _timestamp: BigInt!
   transactionHash: Bytes!
+  _location: String! # string
 }
 
 type NGOLisCreated @entity(immutable: true) {
@@ -16,6 +17,7 @@ type NGOLisCreated @entity(immutable: true) {
   _name: String! # string
   _imageLink: String! # string
   _description: String! # string
+  _location: String! # string
   _link: String! # string
   _rewardsOwner: Bytes! # address
   _ngoAddress: Bytes! # address
@@ -53,8 +55,8 @@ type NgoLisStaked @entity(immutable: true) {
   _staker: Bytes!
   _amountStaked: BigInt!
   _percentShare: Int!
-  _duration: BigInt!
   _ngo: Bytes!
+  _id: BigInt!
   _startDate: BigInt!
   _blockNumber: BigInt!
   _timestamp: BigInt!

@@ -11,6 +11,7 @@ export function handleNGOCreated(event: NGOCreatedEvent): void {
   entity._name = event.params._name
   entity._imageLink = event.params._imageLink
   entity._description = event.params._description
+  entity._location = event.params._location
   entity._link = event.params._link
   entity._rewardsOwner = event.params._rewardsOwner
   entity._ngoAddress = event.params._ngoAddress

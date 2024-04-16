@@ -1,13 +1,4 @@
 import {
-  Claimed,
-  NGOCreated,
-  Staked,
-  NGOFinished,
-  RewardsUpdated,
-  WithdrawRequested,
-  WithdrawClaimed,
-} from "./../generated/templates/NgoLis/NgoLis"
-import {
   NGOLisCreated,
   NgoLisClaimed,
   NgoLisFinished,
@@ -16,6 +7,15 @@ import {
   NgoLisWithdrawClaimed,
   NgoLisWithdrawRequested,
 } from "../generated/schema"
+import {
+  Claimed,
+  NGOCreated,
+  NGOFinished,
+  RewardsUpdated,
+  Staked,
+  WithdrawClaimed,
+  WithdrawRequested,
+} from "../generated/templates/NgoLis/NgoLis"
 
 export function handleNGOCreated(event: NGOCreated): void {
   const ngoCreate = new NGOLisCreated(event.transaction.hash)
@@ -62,7 +62,7 @@ export function handleRewardsUpdated(event: RewardsUpdated): void {
 export function handleStaked(event: Staked): void {
   const ngoStaked = new NgoLisStaked(event.transaction.hash)
   ngoStaked._amountStaked = event.params._amountStaked
-  ngoStaked._duration = event.params._duration
+  ngoStaked._id = event.params._id
   ngoStaked._ngo = event.params._ngo
   ngoStaked._staker = event.params._staker
   ngoStaked._percentShare = event.params._percentShare

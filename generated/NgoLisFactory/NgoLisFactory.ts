@@ -10,6 +10,24 @@ import {
   BigInt,
 } from "@graphprotocol/graph-ts";
 
+export class LisFeeClaimed extends ethereum.Event {
+  get params(): LisFeeClaimed__Params {
+    return new LisFeeClaimed__Params(this);
+  }
+}
+
+export class LisFeeClaimed__Params {
+  _event: LisFeeClaimed;
+
+  constructor(event: LisFeeClaimed) {
+    this._event = event;
+  }
+
+  get _value(): BigInt {
+    return this._event.parameters[0].value.toBigInt();
+  }
+}
+
 export class NGOCreated extends ethereum.Event {
   get params(): NGOCreated__Params {
     return new NGOCreated__Params(this);
@@ -46,11 +64,52 @@ export class NGOCreated__Params {
   get _ngoAddress(): Address {
     return this._event.parameters[5].value.toAddress();
   }
+
+  get _location(): string {
+    return this._event.parameters[6].value.toString();
+  }
+}
+
+export class OwnershipTransferred extends ethereum.Event {
+  get params(): OwnershipTransferred__Params {
+    return new OwnershipTransferred__Params(this);
+  }
+}
+
+export class OwnershipTransferred__Params {
+  _event: OwnershipTransferred;
+
+  constructor(event: OwnershipTransferred) {
+    this._event = event;
+  }
+
+  get previousOwner(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
+  get newOwner(): Address {
+    return this._event.parameters[1].value.toAddress();
+  }
 }
 
 export class NgoLisFactory extends ethereum.SmartContract {
   static bind(address: Address): NgoLisFactory {
     return new NgoLisFactory("NgoLisFactory", address);
+  }
+
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   ownerToNgo(param0: Address): Address {
@@ -98,12 +157,8 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[1].value.toAddress();
   }
 
-  get _oracleAddress(): Address {
-    return this._call.inputValues[2].value.toAddress();
-  }
-
   get _ngoImplementationAddress(): Address {
-    return this._call.inputValues[3].value.toAddress();
+    return this._call.inputValues[2].value.toAddress();
   }
 }
 
@@ -148,8 +203,16 @@ export class CreateNGOCall__Inputs {
     return this._call.inputValues[3].value.toString();
   }
 
+  get _location(): string {
+    return this._call.inputValues[4].value.toString();
+  }
+
   get _rewardsOwner(): Address {
-    return this._call.inputValues[4].value.toAddress();
+    return this._call.inputValues[5].value.toAddress();
+  }
+
+  get owner(): Address {
+    return this._call.inputValues[6].value.toAddress();
   }
 }
 
@@ -157,6 +220,88 @@ export class CreateNGOCall__Outputs {
   _call: CreateNGOCall;
 
   constructor(call: CreateNGOCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall extends ethereum.Call {
+  get inputs(): RenounceOwnershipCall__Inputs {
+    return new RenounceOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): RenounceOwnershipCall__Outputs {
+    return new RenounceOwnershipCall__Outputs(this);
+  }
+}
+
+export class RenounceOwnershipCall__Inputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class RenounceOwnershipCall__Outputs {
+  _call: RenounceOwnershipCall;
+
+  constructor(call: RenounceOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class TransferOwnershipCall extends ethereum.Call {
+  get inputs(): TransferOwnershipCall__Inputs {
+    return new TransferOwnershipCall__Inputs(this);
+  }
+
+  get outputs(): TransferOwnershipCall__Outputs {
+    return new TransferOwnershipCall__Outputs(this);
+  }
+}
+
+export class TransferOwnershipCall__Inputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+
+  get newOwner(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+}
+
+export class TransferOwnershipCall__Outputs {
+  _call: TransferOwnershipCall;
+
+  constructor(call: TransferOwnershipCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawFeeStEthCall extends ethereum.Call {
+  get inputs(): WithdrawFeeStEthCall__Inputs {
+    return new WithdrawFeeStEthCall__Inputs(this);
+  }
+
+  get outputs(): WithdrawFeeStEthCall__Outputs {
+    return new WithdrawFeeStEthCall__Outputs(this);
+  }
+}
+
+export class WithdrawFeeStEthCall__Inputs {
+  _call: WithdrawFeeStEthCall;
+
+  constructor(call: WithdrawFeeStEthCall) {
+    this._call = call;
+  }
+}
+
+export class WithdrawFeeStEthCall__Outputs {
+  _call: WithdrawFeeStEthCall;
+
+  constructor(call: WithdrawFeeStEthCall) {
     this._call = call;
   }
 }

@@ -99,6 +99,12 @@
         "internalType": "string",
         "name": "_location",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "oracle",
+        "type": "address"
       }
     ],
     "name": "NGOCreated",
@@ -150,6 +156,11 @@
       {
         "internalType": "address",
         "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "oracle",
         "type": "address"
       }
     ],

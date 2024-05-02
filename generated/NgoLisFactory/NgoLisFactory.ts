@@ -68,6 +68,10 @@ export class NGOCreated__Params {
   get _location(): string {
     return this._event.parameters[6].value.toString();
   }
+
+  get oracle(): Address {
+    return this._event.parameters[7].value.toAddress();
+  }
 }
 
 export class OwnershipTransferred extends ethereum.Event {
@@ -213,6 +217,10 @@ export class CreateNGOCall__Inputs {
 
   get owner(): Address {
     return this._call.inputValues[6].value.toAddress();
+  }
+
+  get oracle(): Address {
+    return this._call.inputValues[7].value.toAddress();
   }
 }
 

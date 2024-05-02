@@ -15,10 +15,10 @@ export function handleNGOCreated(event: NGOCreatedEvent): void {
   entity._link = event.params._link
   entity._rewardsOwner = event.params._rewardsOwner
   entity._ngoAddress = event.params._ngoAddress
-
   entity._blockNumber = event.block.number
   entity._timestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
+  entity._oracle = event.params.oracle
 
   entity.save()
 }

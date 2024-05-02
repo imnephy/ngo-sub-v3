@@ -6,6 +6,7 @@ type NGOCreated @entity(immutable: true) {
   _link: String! # string
   _rewardsOwner: Bytes! # address
   _ngoAddress: Bytes! # address
+  _oracle: Bytes! # address
   _blockNumber: BigInt!
   _timestamp: BigInt!
   transactionHash: Bytes!
@@ -52,11 +53,11 @@ type NgoLisRewardsUpdated @entity(immutable: true) {
 
 type NgoLisStaked @entity(immutable: true) {
   id: Bytes!
+  _stakeId: BigInt!
   _staker: Bytes!
   _amountStaked: BigInt!
   _percentShare: Int!
   _ngo: Bytes!
-  _id: BigInt!
   _startDate: BigInt!
   _blockNumber: BigInt!
   _timestamp: BigInt!
@@ -75,6 +76,7 @@ type NgoLisWithdrawClaimed @entity(immutable: true) {
 type NgoLisWithdrawRequested @entity(immutable: true) {
   id: Bytes!
   _staker: Bytes!
+  _stakeId: BigInt!
   _ngo: Bytes!
   _requestId: BigInt!
   _blockNumber: BigInt!

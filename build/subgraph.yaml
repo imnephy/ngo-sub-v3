@@ -6,9 +6,9 @@ dataSources:
     name: NgoLisFactory
     network: holesky
     source:
-      address: "0xB3A69eF34dA13b89833616fb17EF341d82e0f06F"
+      address: "0xC728A309b524504BC0AaB6042C64c8BBbc73aA94"
       abi: NgoLisFactory
-      startBlock: 1357120
+      startBlock: 1416685
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -19,7 +19,7 @@ dataSources:
         - name: NgoLisFactory
           file: NgoLisFactory/abis/NgoLisFactory.json
       eventHandlers:
-        - event: NGOCreated(string,string,string,string,address,address,string)
+        - event: NGOCreated(string,string,string,string,address,address,string,address)
           handler: handleNGOCreated
       file: NgoLisFactory/NgoLisFactory.wasm
 templates:
@@ -34,8 +34,6 @@ templates:
       language: wasm/assemblyscript
       file: templates/NgoLisSource/NgoLisSource.wasm
       entities:
-        - NGOLisCreated
-        - NgoLisClaimed
         - NgoLisFinished
         - NgoLisRewardsUpdated
         - NgoLisStaked
@@ -53,5 +51,5 @@ templates:
           handler: handleStaked
         - event: WithdrawClaimed(address,address,uint256,uint256,uint256,uint256)
           handler: handleWithdrawClaimed
-        - event: WithdrawRequested(address,address,uint256,uint256,uint256)
+        - event: WithdrawRequested(address,address,uint256,uint256,uint256,uint256)
           handler: handleWithdrawRequested

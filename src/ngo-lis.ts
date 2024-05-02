@@ -1,6 +1,4 @@
 import {
-  NGOLisCreated,
-  NgoLisClaimed,
   NgoLisFinished,
   NgoLisRewardsUpdated,
   NgoLisStaked,
@@ -8,36 +6,13 @@ import {
   NgoLisWithdrawRequested,
 } from "../generated/schema"
 import {
-  Claimed,
-  NGOCreated,
   NGOFinished,
   RewardsUpdated,
   Staked,
   WithdrawClaimed,
   WithdrawRequested,
-} from "../generated/templates/NgoLis/NgoLis"
+} from "../generated/templates/NgoLisSource/NgoLis"
 
-export function handleNGOCreated(event: NGOCreated): void {
-  const ngoCreate = new NGOLisCreated(event.transaction.hash)
-  ngoCreate._description = event.params._description
-  ngoCreate._imageLink = event.params._imageLink
-  ngoCreate._link = event.params._link
-  ngoCreate._name = event.params._name
-  ngoCreate._ngoAddress = event.params._ngoAddress
-  ngoCreate._rewardsOwner = event.params.rewardsOwner
-  ngoCreate._blockNumber = event.block.number
-  ngoCreate._timestamp = event.block.timestamp
-
-  ngoCreate.save()
-}
-export function handleClaimed(event: Claimed): void {
-  const ngoClaim = new NgoLisClaimed(event.transaction.hash)
-  ngoClaim._eth = event.params._eth
-  ngoClaim._staker = event.params._staker
-  ngoClaim._blockNumber = event.block.number
-  ngoClaim._timestamp = event.block.timestamp
-  ngoClaim.save()
-}
 export function handleNGOFinished(event: NGOFinished): void {
   const ngoFinished = new NgoLisFinished(event.transaction.hash)
   ngoFinished._ngo = event.params._ngo
@@ -53,8 +28,8 @@ export function handleRewardsUpdated(event: RewardsUpdated): void {
   ngoRewardsUpdated._dateRecountRewards =
     event.params._dateRecountRewards
   ngoRewardsUpdated._rewardsPool = event.params._rewardsPool
-  ngoRewardsUpdated._stakedBalance = event.params._stakedBalance
-  ngoRewardsUpdated._totalShare = event.params._totalShare
+  ngoRewardsUpdated._stakedBalance = event.params.stakedBalance
+  ngoRewardsUpdated._totalShare = event.params.totalShare
   ngoRewardsUpdated._blockNumber = event.block.number
   ngoRewardsUpdated._timestamp = event.block.timestamp
   ngoRewardsUpdated.save()
@@ -62,7 +37,7 @@ export function handleRewardsUpdated(event: RewardsUpdated): void {
 export function handleStaked(event: Staked): void {
   const ngoStaked = new NgoLisStaked(event.transaction.hash)
   ngoStaked._amountStaked = event.params._amountStaked
-  ngoStaked._id = event.params._id
+  ngoStaked._stakeId = event.params._id
   ngoStaked._ngo = event.params._ngo
   ngoStaked._staker = event.params._staker
   ngoStaked._percentShare = event.params._percentShare
@@ -92,6 +67,7 @@ export function handleWithdrawRequested(
   )
   ngoWithdrawRequested._ngo = event.params._ngo
   ngoWithdrawRequested._requestId = event.params._requestId
+  ngoWithdrawRequested._stakeId = event.params._stakeId
   ngoWithdrawRequested._staker = event.params._staker
   ngoWithdrawRequested._blockNumber = event.block.number
   ngoWithdrawRequested._timestamp = event.block.timestamp

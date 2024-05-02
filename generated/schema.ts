@@ -132,6 +132,19 @@ export class NGOCreated extends Entity {
     this.set("_ngoAddress", Value.fromBytes(value));
   }
 
+  get _oracle(): Bytes {
+    let value = this.get("_oracle");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set _oracle(value: Bytes) {
+    this.set("_oracle", Value.fromBytes(value));
+  }
+
   get _blockNumber(): BigInt {
     let value = this.get("_blockNumber");
     if (!value || value.kind == ValueKind.NULL) {
@@ -690,8 +703,8 @@ export class NgoLisStaked extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
-  get _id(): BigInt {
-    let value = this.get("_id");
+  get _stakeId(): BigInt {
+    let value = this.get("_stakeId");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -699,8 +712,8 @@ export class NgoLisStaked extends Entity {
     }
   }
 
-  set _id(value: BigInt) {
-    this.set("_id", Value.fromBigInt(value));
+  set _stakeId(value: BigInt) {
+    this.set("_stakeId", Value.fromBigInt(value));
   }
 
   get _staker(): Bytes {
@@ -977,6 +990,19 @@ export class NgoLisWithdrawRequested extends Entity {
 
   set _staker(value: Bytes) {
     this.set("_staker", Value.fromBytes(value));
+  }
+
+  get _stakeId(): BigInt {
+    let value = this.get("_stakeId");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set _stakeId(value: BigInt) {
+    this.set("_stakeId", Value.fromBigInt(value));
   }
 
   get _ngo(): Bytes {

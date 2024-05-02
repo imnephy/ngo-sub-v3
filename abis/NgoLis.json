@@ -57,14 +57,9 @@
         "internalType": "address",
         "name": "_sender",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_owner",
-        "type": "address"
       }
     ],
-    "name": "OnlyOwnerOrOracle",
+    "name": "OnlyOracle",
     "type": "error"
   },
   {
@@ -371,6 +366,12 @@
         "internalType": "uint256",
         "name": "_blockNumber",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "_stakeId",
+        "type": "uint256"
       }
     ],
     "name": "WithdrawRequested",
@@ -527,6 +528,11 @@
       {
         "internalType": "address",
         "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "oracle",
         "type": "address"
       }
     ],

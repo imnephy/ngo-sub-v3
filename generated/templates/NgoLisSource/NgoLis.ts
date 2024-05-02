@@ -248,6 +248,10 @@ export class WithdrawRequested__Params {
   get _blockNumber(): BigInt {
     return this._event.parameters[4].value.toBigInt();
   }
+
+  get _stakeId(): BigInt {
+    return this._event.parameters[5].value.toBigInt();
+  }
 }
 
 export class NgoLis__getHistoryDataResult {
@@ -722,6 +726,10 @@ export class InitializeCall__Inputs {
 
   get owner(): Address {
     return this._call.inputValues[3].value.toAddress();
+  }
+
+  get oracle(): Address {
+    return this._call.inputValues[4].value.toAddress();
   }
 }
 
